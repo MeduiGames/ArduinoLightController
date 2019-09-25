@@ -9,6 +9,7 @@
 #define PIN_LED_GREEN 10
 
 #define PIN_CONTROLLER_BUTTON 4
+#define PIN_CONTROLLER_SLIDER A2
 
 void controllerUpdate();
 void lightsUpdate();
@@ -22,13 +23,12 @@ void setup() {
   pinMode(PIN_LED_YELLOW, OUTPUT);
   pinMode(PIN_LED_GREEN, OUTPUT);
 
-  pinMode(PIN_CONTROLLER_BUTTON, INPUT);
+  pinMode(PIN_CONTROLLER_BUTTON, INPUT);  
+  pinMode(PIN_CONTROLLER_SLIDER, INPUT);
 
   currentState = PIN_LED_RED;
   currentMode = true;
   currentSpeed = 1000;
-
-  Serial.begin(9600);
 }
 
 void loop() {
@@ -49,7 +49,7 @@ void lightsUpdate()
 {
   digitalWrite(currentState, HIGH);
   
-  if(micros() % 10 != 0 || millis() % 1000 != 0){ 
+  if(millis() % (((int)(currentSpeed * (float)analogRead(PIN_CONTROLLER_SLIDER) / 1000.0) / 10) * 10) != 0){ 
     return;  
   }
   
