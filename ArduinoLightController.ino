@@ -1,6 +1,5 @@
 /*
  Name:    Traffic Light Controller
- Created: 23.09.2019 17:07:53
  Author:  Vladimir Mistrukov
 */
 
@@ -43,13 +42,14 @@ void controllerUpdate()
     currentState = PIN_LED_YELLOW;
     currentMode = false;
   }
+  currentSpeed = (((int)(1000 * (float)analogRead(PIN_CONTROLLER_SLIDER) / 1000.0) / 10) * 10);
 }
 
 void lightsUpdate()
 {
   digitalWrite(currentState, HIGH);
   
-  if(millis() % (((int)(currentSpeed * (float)analogRead(PIN_CONTROLLER_SLIDER) / 1000.0) / 10) * 10) != 0){ 
+  if(millis() % currentSpeed != 0){ 
     return;  
   }
   
