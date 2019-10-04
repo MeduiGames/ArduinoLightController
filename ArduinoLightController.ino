@@ -1,8 +1,3 @@
-/*
- Name:    Traffic Light Controller
- Author:  Vladimir Mistrukov
-*/
-
 #define PIN_LED_RED 8
 #define PIN_LED_YELLOW 9
 #define PIN_LED_GREEN 10
